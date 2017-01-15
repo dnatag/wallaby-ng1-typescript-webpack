@@ -32,7 +32,9 @@ module.exports = function (wallaby) {
 
     preprocessors: {
       'src/**/*.html': function (file) {
-        return angularTemplatePreprocessor.transform(file, {stripPrefix:'src/'})
+        const html = file.content;
+        return angularTemplatePreprocessor.transform(file, {stripPrefix: 'src/'})
+          + '\nmodule.exports = ' + JSON.stringify(html) + ';';
       }
     },
 
